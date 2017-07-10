@@ -10,4 +10,10 @@ The hardware design will be published, and is similar to the version shown in th
 
 If you do use it, you will need to establish your own protocol for best practice. The formulae used need checking, so check them first before you rely on them. 
 
+Also see these two related repositories:
+
+https://github.com/ACECentre/MAT-doc
+
+https://github.com/ACECentre/Wheelchair-Stability-App
+
 Development is happening now, so get in touch or add issues to feed into this project. Thanks!
