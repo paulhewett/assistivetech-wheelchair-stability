@@ -1,0 +1,212 @@
+<html>
+
+<head>
+
+<script type="text/javascript">
+
+function set_value(id, text) {
+    document.getElementById(id).innerHTML = text;
+}
+
+
+function calculate()
+{
+
+
+<!-- Set up constants as variables // --> 
+
+var front_height = scale_height.value
+var gravity = 9.81
+var pi = 3.14159265
+
+
+<!-- Calculate the weights on all four corners // --> 
+front_left_weight = front_l.value * gravity
+front_right_weight = front_r.value * gravity
+rear_left_weight = rear_l.value * gravity
+rear_right_weight = rear_r.value * gravity
+
+<!-- Total weights to front and rear // --> 
+front = front_left_weight + front_right_weight
+rear = rear_left_weight + rear_right_weight
+
+<!-- Total weights to left and right // --> 
+total_left = front_left_weight + rear_left_weight
+total_right = front_right_weight + rear_left_weight
+
+<!-- Overall weight // --> 
+total = front + rear
+
+<!-- Calculate AB and BC // -->
+
+ab = (wheelbase.value * front)/total
+bc = wheelbase.value - ab
+ac = ab + bc
+
+
+<!-- Calculate angle_x // -->
+ratio = (front_height - 0) / (wheelbase.value - 0)
+angle_x = (Math.asin(ratio) * 180) / pi
+ar = (wheelbase.value - 0) * Math.cos(Math.asin(ratio))
+
+
+<!-- Calculate weight at front and rear
+tip_left = tipped_l.value * gravity
+tip_right = tipped_r.value * gravity
+tip_total = tip_left + tip_right
+
+
+<!-- Calculate height of Centre of Gravity BD //-->
+
+as = (ar * tip_total) / total
+aq = as / Math.cos(Math.asin(ratio))
+qb = ab - aq
+bd = qb / Math.tan(Math.asin(ratio))
+
+<!-- Calculate angle of forward tip Z //-->
+
+angle_z = Math.atan(bc / bd)
+
+
+<!-- Calculate kerb height forward tip // -->
+
+ar = ac * Math.sin(angle_z)
+
+
+<!-- Calculate angle of rear tip Z //-->
+
+angle_y = Math.atan(ab / bd)
+
+
+<!-- Calculate kerb height rear tip // -->
+
+cr = ac * Math.sin(angle_y)
+
+
+
+
+<!-- Set form text box values // -->
+<!-- And convert radians to degrees //-->
+
+set_value('total_weight_front', Math.round(front))
+set_value('total_weight_rear', Math.round(rear))
+set_value('overall_weight', Math.round(total))
+set_value('measurement_angle', Math.round(angle_x))
+set_value('cog_vertical', Math.round(bd))
+set_value('cog_horizontal', Math.round(bc))
+set_value('tip_point_rear', Math.round((angle_y * 180) / pi))
+set_value('kerb_height_rear', Math.round(cr))
+set_value('tip_point_front', Math.round((angle_z * 180) / pi))
+set_value('kerb_height_front', Math.round(ar))
+
+}
+
+function calculate_wheelbase()
+{
+
+<!-- Set up constants as variables // --> 
+
+
+axle_height_difference = rear_axle_height.value - front_axle_height.value
+
+length_sq = (axle_distance.value * axle_distance.value) - (axle_height_difference * axle_height_difference)
+
+horizontal_distance = Math.sqrt((axle_distance.value * axle_distance.value) - (axle_height_difference * axle_height_difference))
+wheelbase.value = Math.round(horizontal_distance)
+
+}
+
+</script>
+
+<title>Wheelchair Stability Test</title>
+<style type="text/css">
+<!--
+.style1 {color: #100}
+-->
+</style>
+</head>
+
+<body>
+<h1>Wheelchair Static Stability Test</h1>
+<table  border="1">
+  <tr>
+    <td colspan="2">Front Axle Height</td>
+    <td><input name="front_axle_height" type="text" class="style1" id="front_axle_height" size="5" maxlength="4">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">Rear Axle Height</td>
+    <td><input name="rear_axle_height" type="text" class="style1" id="rear_axle_height" size="5" maxlength="4"></td>
+  </tr>
+  <tr>
+    <td colspan="2">Axle Distance </td>
+    <td><input name="axle_distance" type="text" class="style1" id="axle_distance" size="5" maxlength="4"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><input type="submit" name="Submit" value="Calculate Wheelbase..." onClick="calculate_wheelbase()"></td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">Wheelbase</td>
+    <td><input name="wheelbase" type="text" class="style1" id="wheelbase" size="5" maxlength="4">
+      mm</td>
+  </tr>
+  <tr>
+    <td colspan="2">Height of scales</td>
+    <td><input name="scale_height" type="text" id="scale_height" size="5" maxlength="4">
+      mm</td>
+  </tr>
+  <tr>
+    <td colspan="2">Mass Front Left Wheel (Tipped) </td>
+    <td><input name="tipped_l" type="text" id="tipped_l" size="5" maxlength="4">
+      kg</td>
+  </tr>
+  <tr>
+    <td colspan="2">Mass Front Right Wheel (Tipped)</td>
+    <td><input name="tipped_r" type="text" id="tipped_r" size="5" maxlength="4">
+      kg</td>
+  </tr>
+  <tr>
+    <td colspan="2">Mass Front Left Wheel (Flat)</td>
+    <td><input name="front_l" type="text" id="front_l" size="5" maxlength="4">
+      kg</td>
+  </tr>
+  <tr>
+    <td colspan="2">Mass Front Right Wheel (Flat)</td>
+    <td><input name="front_r" type="text" id="front_r" size="5" maxlength="4">
+      kg</td>
+  </tr>
+  <tr>
+    <td colspan="2">Mass Rear Left Wheel (Flat)</td>
+    <td>      <input name="rear_l" type="text" id="rear_l" size="5" maxlength="4">
+    kg</td>
+  </tr>
+  <tr>
+    <td colspan="2">Mass Rear Right Wheel (Flat)</td>
+    <td>      <input name="rear_r" type="text" id="rear_r" size="5" maxlength="4">
+    kg</td>
+  </tr>
+
+  <tr>
+    <td colspan="3"><input type="submit" name="Submit" value="Calculate Results..." onClick="calculate()"></td>
+  </tr>
+</table>
+<h1>Calculated Test Results</h1>
+<p>
+  <div>Total Front Weight (N): <div id="total_weight_front">Not calculated</div></div><br />
+  <div>Total Rear Weight (N): <div id="total_weight_rear">Not calculated</div></div><br />
+  <div>Total Weight (N): <div id="overall_weight">Not calculated</div></div><br />
+  <div>Measurement Angle (degrees): <div id="measurement_angle">Not calculated</div></div><br />
+  <div>COG Height (mm): <div id="cog_vertical">Not calculated</div></div><br />
+  <div>Rear to COG (mm): <div id="cog_horizontal">Not calculated</div></div><br />
+  <div>Rearward Tip Point (degrees): <div id="tip_point_rear">Not calculated</div></div><br />
+  <div>Max Front Kerb Height (mm): <div id="kerb_height_rear">Not calculated</div></div><br />
+  <div>Forward Tip Point (degrees): <div id="tip_point_front">Not calculated</div></div><br />
+  <div>Max Rear Kerb Height (mm): <div id="kerb_height_front">Not calculated</div></div><br />
+</p>
+</body>
+</html>
+
+
