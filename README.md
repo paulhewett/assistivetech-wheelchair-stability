@@ -3,9 +3,13 @@
 
 This system can be sued to measure wheelchair static stability. The design's being published to allow better community development and feedback.
 
+<<<<<<< HEAD
 ![Wheelchair Static Stability Test Rig](Wheelchair Static Stability Test Rig.jpg)
 
 You can use [these pages to see the instructions and to calculate theoretical stability](https://paulhewett.github.io/assistivetech-wheelchair-stability/) based on scale measurement data.
+=======
+You can use [these pages to see the instructions and to calculate theoretical stability](https://paulhewett.github.io/wheelchair-stability-test-rig/) based on scale measurement data.
+>>>>>>> origin/master
 
 I've currently just posted a version developed some years ago, with a view to some development soon. It is still a work in progress, so do bear with!
 
