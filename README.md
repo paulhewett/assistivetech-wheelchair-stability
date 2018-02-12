@@ -1,4 +1,4 @@
-## Static Wheelchair Stability Test Rig
+## Wheelchair Static Stability Test Rig
 
 
 This system can be sued to measure wheelchair static stability. The design's being published to allow better community development and feedback.
